@@ -13,7 +13,7 @@ import SDWebImage
 class DCArticleCell: UITableViewCell {
 	
 	let kArticleCellTitleHeight: Float = 70
-	let kCoverPhotoParallaxHeight: Float = 30
+	let kCoverPhotoParallaxHeight: Float = 28
 	
 	//UI
 	let coverImageView: UIImageView = UIImageView()
@@ -30,35 +30,32 @@ class DCArticleCell: UITableViewCell {
 	
 	var article: DCArticle? {
 		didSet {
+			//no containts imgur url
 			self.article?.loadContent { () -> Void in
-				
-				let placeholder: UIImage = self.loadingImageArray[Int.random(0...self.loadingImageArray.count - 1)]!
-				
 				if((self.article?.coverPhotoUrl) != nil) {
-					self.coverImageView.contentMode = .Center
-					self.coverImageView.sd_setImageWithURL(self.article?.coverPhotoUrl!, placeholderImage: placeholder, options: .LowPriority, progress: { (receivedSize: Int, expectedSize: Int) -> Void in
+					self.coverImageView.sd_setImageWithURL(self.article?.coverPhotoUrl!, placeholderImage: self.placeholderImage, options: .LowPriority, progress: { (receivedSize: Int, expectedSize: Int) -> Void in
 						self.coverImageView.alpha = CGFloat(receivedSize) / CGFloat(expectedSize)
 					}, completed: { _, _, _, _  in
 						self.coverImageView.alpha = 1
 						self.coverImageView.contentMode = .ScaleAspectFill
 					})
-					
 				} else {
-					//no containts imgur url
-					self.coverImageView.contentMode = .Center
 					self.coverImageView.alpha = 1
-					self.coverImageView.image = placeholder
-					self.titleLabel.text = self.article?.content
+					self.coverImageView.image = self.placeholderImage
 				}
 			}
 			self.titleLabel.text = self.article?.title
 			self.descriptionLabel.text = self.article?.content
 			self.genderImageView.image = self.genderImage
+			
 		}
 	}
 	
 	override func prepareForReuse() {
 		//TODO: cancel download queue
+		self.coverImageView.alpha = 1
+		self.coverImageView.contentMode = .Center
+		self.coverImageView.image = self.placeholderImage
 	}
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -67,8 +64,8 @@ class DCArticleCell: UITableViewCell {
 		
 		self.coverImageView.translatesAutoresizingMaskIntoConstraints = false
 		self.coverImageView.image = UIImage(named: "test")
-		self.coverImageView.contentMode = .ScaleAspectFill
 		self.coverImageView.layer.masksToBounds = true
+		self.coverImageView.contentMode = .Center
 		self.coverImageView.tintColor = UIColor.whiteColor()
 		self.coverImageView.clipsToBounds = true
 		self.contentView.addSubview(self.coverImageView)
@@ -161,6 +158,10 @@ class DCArticleCell: UITableViewCell {
 	
 	var genderImage: UIImage {
 		return (self.article?.gender == .Male ? UIImage(named: "ic_head_boy"):UIImage(named: "ic_head_girl"))!
+	}
+	
+	var placeholderImage: UIImage {
+		return self.loadingImageArray[Int.random(0...self.loadingImageArray.count - 1)]!
 	}
 	
 // MARK - Public Methods

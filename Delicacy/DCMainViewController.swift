@@ -109,11 +109,11 @@ extension DCMainViewController: UIViewControllerTransitioningDelegate {
 		transitionAimator.presenting = true
 		return transitionAimator
 	}
-	
-	func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-		transitionAimator.presenting = false
-		return transitionAimator
-	}
+// TODO: buggy dismiss
+//	func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//		transitionAimator.presenting = false
+//		return transitionAimator
+//	}
 }
 
 extension DCMainViewController: UIScrollViewDelegate {
