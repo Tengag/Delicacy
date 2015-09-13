@@ -9,14 +9,14 @@
 import UIKit
 import SDWebImage
 
+let kCoverPhotoParallaxHeight: CGFloat = 40
 
 class DCArticleCell: UITableViewCell {
 	
 	let kArticleCellTitleHeight: Float = 70
-	let kCoverPhotoParallaxHeight: Float = 28
 	
 	//UI
-	let coverImageView: UIImageView = UIImageView()
+	let coverImageView: UIImageView = UIImageView(frame: CGRectMake(0, 0, kArticleCellHeight, kArticleCellHeight + kCoverPhotoParallaxHeight))
 	let genderImageView: UIImageView = UIImageView()
 	let titleLabel: UILabel = UILabel()
 	let descriptionLabel: UILabel = UILabel()
@@ -62,7 +62,7 @@ class DCArticleCell: UITableViewCell {
 
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
-		self.coverImageView.translatesAutoresizingMaskIntoConstraints = false
+//		self.coverImageView.translatesAutoresizingMaskIntoConstraints = false
 		self.coverImageView.image = UIImage(named: "test")
 		self.coverImageView.layer.masksToBounds = true
 		self.coverImageView.contentMode = .Center
@@ -113,12 +113,12 @@ class DCArticleCell: UITableViewCell {
 	
 	override func updateConstraints() {
 		if !didSetUpContraints {
-			self.coverImageView.snp_makeConstraints { (make) -> Void in
-				make.left.equalTo(self.contentView)
-				make.right.equalTo(self.contentView)
-				make.bottom.equalTo(self.contentView).offset(kCoverPhotoParallaxHeight/2)
-				make.top.equalTo(self.contentView).offset(-kCoverPhotoParallaxHeight/2)
-			}
+//			self.coverImageView.snp_makeConstraints { (make) -> Void in
+//				make.left.equalTo(self.contentView)
+//				make.right.equalTo(self.contentView)
+//				make.bottom.equalTo(self.contentView).offset(kCoverPhotoParallaxHeight/2)
+//				make.top.equalTo(self.contentView).offset(-kCoverPhotoParallaxHeight/2)
+//			}
 			self.blurTitleBackground.snp_makeConstraints { (make) -> Void in
 				make.left.equalTo(self.contentView)
 				make.right.equalTo(self.contentView)
@@ -166,11 +166,12 @@ class DCArticleCell: UITableViewCell {
 	
 // MARK - Public Methods
 	
-	func applyParallax(ratio: Float) {
-		self.coverImageView.snp_updateConstraints { (make) -> Void in
-			make.top.equalTo(ratio * kCoverPhotoParallaxHeight - kCoverPhotoParallaxHeight)
-			make.bottom.equalTo(ratio * kCoverPhotoParallaxHeight + kCoverPhotoParallaxHeight)
-		}
+	func applyParallax(offsetY: CGFloat) {
+		let x = self.coverImageView.frame.origin.x
+		let w = self.coverImageView.bounds.width
+		let h = self.coverImageView.bounds.height
+		let y = ((offsetY - self.frame.origin.y) / h) * CGFloat(kCoverPhotoParallaxHeight)
+		self.coverImageView.frame = CGRectMake(x, y, w, h)
 	}
 	
 }

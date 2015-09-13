@@ -120,7 +120,7 @@ extension DCMainViewController: UIScrollViewDelegate {
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		for cell: DCArticleCell in self.tableView.visibleCells as! Array {
-			cell.applyParallax(Float((cell.frame.origin.y - scrollView.contentOffset.y) / CGRectGetHeight(self.tableView.frame)))
+			cell.applyParallax(scrollView.contentOffset.y)
 		}
 	}
 }
