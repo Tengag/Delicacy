@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Utils.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/7/15.
@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 
 class Utils {
 	

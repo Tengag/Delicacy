@@ -1,5 +1,5 @@
 //
-//  DCArticle.swift
+//  Article.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/5/15.
@@ -10,13 +10,13 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 
-enum DCGender {
+enum Gender {
 	case Male
 	case Female
 	case None
 }
 
-class DCArticle {
+class Article {
 
 	var identifier: NSNumber?
 	var title: String?
@@ -32,14 +32,14 @@ class DCArticle {
 	var contentLoaded: Bool
 	var school: String?
 	var department: String?
-	var gender: DCGender = .None
+	var gender: Gender = .None
 	
 	init(){
 		self.contentLoaded = false;
 		self.coverPhotoUrl = NSURL()
 	}
 	
-	func initWithJSON(articleJSON: JSON) -> DCArticle {
+	func initWithJSON(articleJSON: JSON) -> Article {
 		
 		//Article Info
 		if let identifier = articleJSON["id"].number {
@@ -60,7 +60,7 @@ class DCArticle {
 	
 }
 
-extension DCArticle {
+extension Article {
 	
 	func loadContent(completion:() -> Void) {
 		if !contentLoaded {

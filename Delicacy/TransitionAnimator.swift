@@ -1,5 +1,5 @@
 //
-//  DCAnimator.swift
+//  TransitionAnimator.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/8/15.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class DCTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 	
 	let duration    = 0.4623 //小數點比較多比較厲害
 	var presenting  = true

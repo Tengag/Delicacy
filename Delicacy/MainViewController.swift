@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/5/15.
@@ -11,11 +11,11 @@ import SnapKit
 
 let kArticleCellHeight: CGFloat = UIScreen.mainScreen().bounds.size.width
 
-class DCMainViewController: UIViewController {
-	var articleDatasource: DCArticleDatesource?
-	let transitionAimator = DCTransitionAnimator()
+class MainViewController: UIViewController {
+	var articleDatasource: ArticleDatesource?
+	let transitionAimator = TransitionAnimator()
 	var didSetUpContraints: Bool = false
-	var selectedCell: DCArticleCell?
+	var selectedCell: ArticleCell?
 	
 // MARK: - View Controller Life Cycle
 
@@ -65,7 +65,7 @@ class DCMainViewController: UIViewController {
 	
 	lazy var tableView: UITableView = {
 		let lazyTableView = UITableView()
-		lazyTableView.registerClass(DCArticleCell.self, forCellReuseIdentifier: NSStringFromClass(DCArticleCell.self) as String)
+		lazyTableView.registerClass(ArticleCell.self, forCellReuseIdentifier: NSStringFromClass(ArticleCell.self) as String)
 		lazyTableView.delegate = self
 		lazyTableView.backgroundColor = UIColor .blackColor()
 		lazyTableView.showsVerticalScrollIndicator = false
@@ -73,10 +73,10 @@ class DCMainViewController: UIViewController {
 		//hide the separator when empty
 		lazyTableView.estimatedRowHeight = kArticleCellHeight
 		lazyTableView.tableFooterView = UIView()
-		self.articleDatasource = DCArticleDatesource(tableView: lazyTableView, cellIdentifier: NSStringFromClass(DCArticleCell.self)){
+		self.articleDatasource = ArticleDatesource(tableView: lazyTableView, cellIdentifier: NSStringFromClass(ArticleCell.self)){
 			(cell, article) in
 			//Save the 🐴!!
-			if let articleCell = cell as? DCArticleCell {
+			if let articleCell = cell as? ArticleCell {
 				articleCell.article = article
 			}
 		}
@@ -86,22 +86,22 @@ class DCMainViewController: UIViewController {
 	
 }
 
-extension DCMainViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return kArticleCellHeight
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		self.selectedCell = tableView .cellForRowAtIndexPath(indexPath) as? DCArticleCell
-		let detailViewController: DCDetailViewController = DCDetailViewController(articleCell: self.selectedCell!)
+		self.selectedCell = tableView .cellForRowAtIndexPath(indexPath) as? ArticleCell
+		let detailViewController: DetailViewController = DetailViewController(articleCell: self.selectedCell!)
 		detailViewController.transitioningDelegate = self
 		presentViewController(detailViewController, animated: true, completion: nil)
 		tableView.deselectRowAtIndexPath(indexPath, animated: false)
 	}
 }
 
-extension DCMainViewController: UIViewControllerTransitioningDelegate {
+extension MainViewController: UIViewControllerTransitioningDelegate {
 	
 	func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 		transitionAimator.originFrame = self.selectedCell!.superview!.convertRect(self.selectedCell!.frame, toView: nil)
@@ -116,10 +116,10 @@ extension DCMainViewController: UIViewControllerTransitioningDelegate {
 //	}
 }
 
-extension DCMainViewController: UIScrollViewDelegate {
+extension MainViewController: UIScrollViewDelegate {
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
-		for cell: DCArticleCell in self.tableView.visibleCells as! Array {
+		for cell: ArticleCell in self.tableView.visibleCells as! Array {
 			cell.applyParallax(scrollView.contentOffset.y)
 		}
 	}

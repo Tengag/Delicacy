@@ -1,5 +1,5 @@
 //
-//  DCArticleCell.swift
+//  ArticleCell.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/5/15.
@@ -11,7 +11,7 @@ import SDWebImage
 
 let kCoverPhotoParallaxHeight: CGFloat = 40
 
-class DCArticleCell: UITableViewCell {
+class ArticleCell: UITableViewCell {
 	
 	let kArticleCellTitleHeight: Float = 70
 	
@@ -28,7 +28,7 @@ class DCArticleCell: UITableViewCell {
 	
 	var didSetUpContraints: Bool = false
 	
-	var article: DCArticle? {
+	var article: Article? {
 		didSet {
 			//no containts imgur url
 			self.article?.loadContent { () -> Void in
@@ -170,7 +170,7 @@ class DCArticleCell: UITableViewCell {
 		let x = self.coverImageView.frame.origin.x
 		let w = self.coverImageView.bounds.width
 		let h = self.coverImageView.bounds.height
-		let y = ((offsetY - self.frame.origin.y) / h) * CGFloat(kCoverPhotoParallaxHeight)
+		let y = ((offsetY - self.frame.origin.y) / h) * kCoverPhotoParallaxHeight
 		self.coverImageView.frame = CGRectMake(x, y, w, h)
 	}
 	

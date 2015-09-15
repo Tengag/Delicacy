@@ -1,5 +1,5 @@
 //
-//  DCDetailViewController.swift
+//  DetailViewController.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/7/15.
@@ -11,11 +11,11 @@
 
 import UIKit
 
-class DCDetailViewController: UIViewController, UIViewControllerTransitioningDelegate {
-	var articleCell: DCArticleCell
+class DetailViewController: UIViewController, UIViewControllerTransitioningDelegate {
+	var articleCell: ArticleCell
 	var backgroundImageView: UIImageView
 	
-	init (articleCell: DCArticleCell) {
+	init (articleCell: ArticleCell) {
 		self.articleCell = articleCell
 		self.backgroundImageView = UIImageView(image: self.articleCell.coverImageView.image)
 		self.backgroundImageView.contentMode = .ScaleAspectFill

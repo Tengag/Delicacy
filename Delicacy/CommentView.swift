@@ -1,5 +1,5 @@
 //
-//  DCCommentView.swift
+//  CommentView.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/7/15.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class DCCommentView: UIView {
-	let comment: DCComment?
+class CommentView: UIView {
+	let comment: Comment?
 	
-	init(comment: DCComment) {
+	init(comment: Comment) {
 		self.comment = comment
 		super.init(frame: CGRect.zero)
 	}

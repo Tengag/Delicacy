@@ -1,5 +1,5 @@
 //
-//  DCArticleDatesource.swift
+//  ArticleDatesource.swift
 //  Delicacy
 //
 //  Created by Youwei Teng on 9/5/15.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DCArticleDatesource: NSObject, UITableViewDataSource {
-	var articles: [DCArticle]
-	let configureBlock:(cell: UITableViewCell, article: DCArticle) -> Void
+class ArticleDatesource: NSObject, UITableViewDataSource {
+	var articles: [Article]
+	let configureBlock:(cell: UITableViewCell, article: Article) -> Void
 	let cellIdentifier: String
 	let tableView: UITableView
 	var page: Int = 0
@@ -18,8 +18,8 @@ class DCArticleDatesource: NSObject, UITableViewDataSource {
 	
 // MARK: - Initializer
 	
-	init(tableView: UITableView, cellIdentifier: String, configureBlock:(cell: UITableViewCell, article: DCArticle) -> Void){
-		self.articles = [DCArticle]()
+	init(tableView: UITableView, cellIdentifier: String, configureBlock:(cell: UITableViewCell, article: Article) -> Void){
+		self.articles = [Article]()
 		self.cellIdentifier = cellIdentifier
 		self.configureBlock = configureBlock
 		self.tableView = tableView;
@@ -43,7 +43,7 @@ class DCArticleDatesource: NSObject, UITableViewDataSource {
 		return self.articles.count
 	}
 	
-	func articleAtIndex(indexPath: NSIndexPath) -> DCArticle {
+	func articleAtIndex(indexPath: NSIndexPath) -> Article {
 		return self.articles[indexPath.row]
 	}
 	
@@ -51,7 +51,7 @@ class DCArticleDatesource: NSObject, UITableViewDataSource {
 	
 	private func loadArticles() {
 		page++
-		DCDataEngine.articlesAt(page) { (result: [DCArticle]) in
+		DataEngine.articlesAt(page) { (result: [Article]) in
 			self.lastLoadedCount = result.count
 			self.articles += result
 			self.tableView.reloadData()
