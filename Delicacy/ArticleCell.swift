@@ -75,12 +75,14 @@ class ArticleCell: UITableViewCell {
 		self.contentView.addSubview(self.blurTitleBackground)
 		
 		self.visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+		self.visualEffectView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.1)
 		self.blurTitleBackground.addSubview(self.visualEffectView)
 		
 		self.vibrancyEffectView.translatesAutoresizingMaskIntoConstraints = false
 		self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		
 		self.titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+		self.titleLabel.textColor = UIColor.blackColor().colorWithAlphaComponent(1.0)
 		self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		self.descriptionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
 		
